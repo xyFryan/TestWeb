@@ -1,0 +1,31 @@
+.overall{
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	border: 0;
+	background: #fff;
+}
+body{
+	display: block;
+}
+.overall-content{
+	 margin: 0 5%;
+	 border-style: none solid solid solid;
+	 border-width: 2px;
+}
+.header{
+	height: 150px;
+	font-size: 20px;
+	background: #0f0;
+}
+.bodyer{
+	margin-top: 10px;
+	height: 500px;
+	background: #f00;
+}
+.footter{
+	margin-top: 10px;
+	height: 200px;
+	background: #00f;
+
+}
