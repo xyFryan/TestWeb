@@ -8,21 +8,27 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link rel="shortcut icon" href="#">
 		<!-- <link rel="stylesheet" type="text/css" href="css/index.css"> -->
-	</head>
-	<body class="overall" id="index-overall">
-		<div class="overall-content">
-			<div class="header" id="index-header"><H1>This is a  maintaining web.Please Wating.</H1>
-<img src="img/1.gif">
+		<style type="text/css">
+#img_index {
+	bottom:  0px;
+	width: 200px;
 
-<?php
-echo "今天是 " . date("Y/m/d") . "<br>";
-echo "今天是 " . date("Y.m.d") . "<br>";
-echo "今天是 " . date("Y-m-d") . "<br>";
-echo "今天是 " . date("l");
-?>
+}
+.footer{
+	font-size: 16px;
+	color: red;
+}
+		</style>
+	</head>
+	<body >
+		<div class="entire">
+			<div class="header" id="index-header"><H1>This is a  maintaining web.Please Wating.</H1>
+<img id="img_index" src="img/1.gif">
+
 			</div>
-			<div class="bodyer" id="index-bodyer"></div>
-			<div class="footter" id="index-footter"></div>
+			<div class="content" id="index-content"></div>
+			<div class="footer" id="index-footer">
+				copyright 2017-<?php echo date("Y")."赣ICP备17003211号-1"?></div>
 		</div>
 	</body>
 </html>
