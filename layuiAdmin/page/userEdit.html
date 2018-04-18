@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>文章添加--layui后台管理模板</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
+</head>
+<body class="childrenBody">
+	<form class="layui-form">
+	  <div class="layui-form-item">
+		     <label class="layui-form-label">用户名：</label>
+		<div class="layui-input-block">
+    		  <input type="text" name="username" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input username">
+	    </div>
+	  </div>
+	  <div class="layui-form-item">
+	    <label class="layui-form-label">密码框：</label>
+	    <div class="layui-input-inline">
+	      <input type="text" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input password">
+	    </div>
+	    <div class="layui-form-mid layui-word-aux">密码需要规范</div>
+	  </div>	  
+		<div class="layui-form-item">
+			<div class="layui-input-block">
+				<button class="layui-btn" lay-submit="" lay-filter="addUsers">立即提交</button>
+				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+		    </div>
+		</div>
+	</form>
+	<div id="result">
+	</div>
+	<script type="text/javascript" src="../layui/layui.js"></script>
+	<script>
+	function GetRequest(){
+		var url=location.search;
+		var theRequest=new Object();
+		if(url.indexOf("?")!=-1){
+			var str=url.substr(1);
+			strs=str.split("&");
+			for(var i=0;i<strs.length;i++){
+				theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+			}
+		}
+		return theRequest;
+	}
+	//code by xyf
+	layui.use(['form','layer','jquery','layedit','laydate'],function(){
+			var form = layui.form,
+			layer = parent.layer === undefined ? layui.layer : parent.layer,
+			laypage = layui.laypage,
+			layedit = layui.layedit,
+			laydate = layui.laydate,
+			$ = layui.jquery;
+		
+				$.getJSON('http://localhost:8080/version1.0/user.do?method=show&User_ID=3',function(data){  
+				$.each(data,function(i,n){
+					$(".username").val(n["userName"]);
+					$(".password").val(n["password"]);
+				});
+			});	 
+			
+			form.on("submit(addUsers)",function(date){
+				var username=$(".username").val();
+				var password=$(".password").val();
+			$.get("../user.do?method=update&m_username="+username+"&m_password="+password+"&User_ID="+User_ID,function(date){
+				});
+		        top.layer.msg("修改成功！");
+		        layer.closeAll();
+		 		parent.location.reload();
+		 		return false;
+	 	})
+	})
+	</script>
+</body>
+</html>

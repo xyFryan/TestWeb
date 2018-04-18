@@ -20,26 +20,12 @@ layui.use(['form','layer','jquery','laypage','element'],function(){
 
 	
 	var newsData = '';
-	$.get("../json/newsList.json", function(data){
+	$.get("../json/user.json", function(data){
 	  //$.get("http://localhost:8080/version1.0/*.do",function(data){
 		var newArray = [];
 		size=JSONLength(data);
 		//单击首页“待审核文章”加载的信息
-		if($(".top_tab li.layui-this cite",parent.document).text() == "待审核文章"){
-			if(window.sessionStorage.getItem("addNews")){
-				var addNews = window.sessionStorage.getItem("addNews");
-				newsData = JSON.parse(addNews).concat(data);
-			}else{
-				newsData = data;
-			}
-			for(var i=0;i<newsData.length;i++){
-        		if(newsData[i].newsStatus == "待审核"){
-					newArray.push(newsData[i]);
-        		}
-        	}
-        	newsData = newArray;
-        	newsList(newsData);
-		}else{    //正常加载信息
+		    //正常加载信息
 			newsData = data;
 			if(window.sessionStorage.getItem("addNews")){
 				var addNews = window.sessionStorage.getItem("addNews");
@@ -47,7 +33,7 @@ layui.use(['form','layer','jquery','laypage','element'],function(){
 			}
 			//执行加载数据的方法
 			newsList();
-		}
+		
 	})
 
 	//查询
@@ -191,7 +177,7 @@ layui.use(['form','layer','jquery','laypage','element'],function(){
 	            	//删除数据
 	            	for(var j=0;j<$checked.length;j++){
 	            		for(var i=0;i<newsData.length;i++){
-							if(newsData[i].newsId == $checked.eq(j).parents("tr").find(".news_del").attr("data-id")){
+							if(newsData[i].userId == $checked.eq(j).parents("tr").find(".news_del").attr("data-id")){
 								newsData.splice(i,1);
 								newsList(newsData);
 							}
@@ -262,7 +248,7 @@ layui.use(['form','layer','jquery','laypage','element'],function(){
 		layer.confirm('确定删除此信息？',{icon:3, title:'提示信息'},function(index){
 			//_this.parents("tr").remove();
 			for(var i=0;i<newsData.length;i++){
-				if(newsData[i].newsId == _this.attr("data-id")){
+				if(newsData[i].userId == _this.attr("data-id")){
 					newsData.splice(i,1);
 					newsList(newsData);
 				}
@@ -284,16 +270,10 @@ layui.use(['form','layer','jquery','laypage','element'],function(){
 				for(var i=0;i<currData.length;i++){
 					dataHtml += '<tr>'
 			    	+'<td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose"></td>'
-			    	+'<td align="left">'+currData[i].newsName+'</td>'
-			    	+'<td>'+currData[i].newsAuthor+'</td>';
-			    	if(currData[i].newsStatus == "待审核"){
-			    		dataHtml += '<td style="color:#f00">'+currData[i].newsStatus+'</td>';
-			    	}else{
-			    		dataHtml += '<td>'+currData[i].newsStatus+'</td>';
-			    	}
-			    	dataHtml += '<td>'+currData[i].newsLook+'</td>'
-			    	+'<td><input type="checkbox" name="show" lay-skin="switch" lay-text="是|否" lay-filter="isShow"'+currData[i].isShow+'></td>'
-			    	+'<td>'+currData[i].newsTime+'</td>'
+			    	+'<td align="left">'+currData[i].userId+'</td>'			   
+			    	+'<td>'+currData[i].userName+'</td>'
+			    	+'<td>'+currData[i].password+'</td>'
+			    	+'<td>'+currData[i].privilege+'</td>'
 			    	+'<td>'
 					+  '<a class="layui-btn layui-btn-mini news_edit"><i class="layui-icon">&#xe642;</i> 编辑</a>'
 					+  '<a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="'+data[i].newsId+'"><i class="layui-icon">&#xe640;</i> 删除</a>'
